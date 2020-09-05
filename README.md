@@ -1,2 +1,2 @@
-# tfce-aws-test
+# tfc-aws-test
 Terraform Cloud記事用のリポジトリ
