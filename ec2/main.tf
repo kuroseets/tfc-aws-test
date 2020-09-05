@@ -35,20 +35,20 @@ data "aws_subnet" "test_subnet" {
   }
 }
 
-resource "aws_instance" "test-ec2-1" {
-  ami           = "ami-0053d11f74e9e7f52"
-  instance_type = "t3.micro"
-  subnet_id     = data.aws_subnet.test_subnet.id
-  tags = {
-    Name = "test-ec2-1"
-  }
-}
+#resource "aws_instance" "test-ec2-1" {
+#  ami           = "ami-0053d11f74e9e7f52"
+#  instance_type = "t3.micro"
+#  subnet_id     = data.aws_subnet.test_subnet.id
+#  tags = {
+#    Name = "test-ec2-1"
+#  }
+#}
 
-resource "aws_instance" "test-ec2-2" {
-  ami           = "ami-0053d11f74e9e7f52"
-  instance_type = "t3.micro"
-  subnet_id     = data.aws_subnet.test_subnet.id
-  tags = {
-    Name = "test-ec2-2"
-  }
-}
+#resource "aws_instance" "test-ec2-2" {
+#  ami           = "ami-0053d11f74e9e7f52"
+#  instance_type = "t3.micro"
+#  subnet_id     = data.aws_subnet.test_subnet.id
+#  tags = {
+#    Name = "test-ec2-2"
+#  }
+#}
