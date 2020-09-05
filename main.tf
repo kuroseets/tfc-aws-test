@@ -42,9 +42,9 @@ resource "aws_subnet" "test_subnet" {
 resource "aws_subnet" "test_subnet2" {
   vpc_id            = aws_vpc.test.id
   cidr_block        = "10.0.0.0/24"
-  availability_zone = "ap-northeast-1b"
+  availability_zone = "ap-northeast-1c"
 
   tags = {
-    Name = "test-b"
+    Name = "test-c"
   }
 }
