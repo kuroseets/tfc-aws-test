@@ -21,7 +21,7 @@ provider "aws" {
   region     = var.region
 }
 
-resource "aws_vpc" "test2" {
+resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
@@ -29,8 +29,8 @@ resource "aws_vpc" "test2" {
   }
 }
 
-resource "aws_subnet" "test_subneti2" {
-  vpc_id            = aws_vpc.test2.id
+resource "aws_subnet" "test_subnet" {
+  vpc_id            = aws_vpc.test.id
   cidr_block        = "10.1.0.0/24"
   availability_zone = "ap-northeast-1a"
 
