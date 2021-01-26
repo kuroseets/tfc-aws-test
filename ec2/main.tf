@@ -21,19 +21,20 @@ provider "aws" {
   region     = var.region
 }
 
-data "aws_vpc" "test" {
-  tags = {
-    Name = "test"
-  }
-}
+#data "aws_vpc" "test" {
+#
+#  tags = {
+#    Name = "test"
+#  }
+#}
 
-data "aws_subnet" "test_subnet" {
-  vpc_id = data.aws_vpc.test.id
-
-  tags = {
-    Name = "test-a"
-  }
-}
+#data "aws_subnet" "test_subnet" {
+#  vpc_id = data.aws_vpc.test.id
+#
+#  tags = {
+#    Name = "test-a"
+#  }
+#}
 
 #resource "aws_instance" "test-ec2-1" {
 #  ami           = "ami-0053d11f74e9e7f52"
