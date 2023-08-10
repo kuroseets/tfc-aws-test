@@ -37,7 +37,7 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test_subnet" {
-  for_each = [for i, j in var.availability_zone_list : i => j] #toset(var.availability_zone_list)
+  for_each = {for i, j in var.availability_zone_list : i => j} #toset(var.availability_zone_list)
 
   vpc_id            = aws_vpc.test.id
   cidr_block        = cidrsubnet("10.0.0.0/16", 8, each.key)
