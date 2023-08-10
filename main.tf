@@ -28,6 +28,11 @@ provider "aws" {
   region     = var.region
 }
 
+output "account_id" {
+  description = "AWS Account ID"
+  value       = aws_caller_identity.account.id
+}
+
 data "aws_caller_identity" "account" {}
 
 resource "aws_vpc" "test" {
