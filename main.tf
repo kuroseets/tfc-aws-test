@@ -7,7 +7,7 @@ variable "region" {
 terraform {
   backend "remote" {
     hostname     = "app.terraform.io"
-    organization = "kuroseets"
+    organization = "exnoa-pf-kurose"
 
     workspaces {
       name = "vpc-test"
