@@ -30,7 +30,7 @@ provider "aws" {
 
 output "account_id" {
   description = "AWS Account ID"
-  value       = aws_caller_identity.account.id
+  value       = data.aws_caller_identity.account.id
 }
 
 data "aws_caller_identity" "account" {}
