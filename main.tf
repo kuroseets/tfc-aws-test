@@ -28,6 +28,8 @@ provider "aws" {
   region     = var.region
 }
 
+data "aws_caller_identity" "account" {}
+
 resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
