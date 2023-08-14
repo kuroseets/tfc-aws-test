@@ -100,6 +100,34 @@ resource "aws_security_group" "allow_tls" {
   }
 }
 
+resource "aws_security_group" "allow_tls2" {
+  name        = "allow_tls2"
+  description = "Allow TLS inbound traffic"
+  vpc_id      = aws_vpc.test.id
+
+  dynamic "ingress" {
+    for_each = [443, 80]
+    content {
+      description      = "TLS from VPC"
+      from_port        = ingress.value
+      to_port          = ingress.value
+      protocol         = "tcp"
+      cidr_blocks      = [aws_vpc.test.cidr_block]
+    }
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "allow_tls"
+  }
+}
+
 resource "random_id" "sample" {
   byte_length = 4
 }
@@ -132,4 +160,24 @@ resource "aws_security_group_rule" "ingress_test" {
   self              = true
   from_port         = 0
   security_group_id = aws_security_group.allow_loop_test[count.index].id
+}
+
+resource "aws_s3_bucket" "bucket_test1" {
+  bucket = "exnoa-pf-kurose-test-bucket1"
+
+  versioning {
+    enabled = false
+  }
+}
+
+resource "aws_s3_bucket" "bucket_test2" {
+  bucket = "exnoa-pf-kurose-test-bucket2"
+}
+
+resource "aws_s3_bucket_versioning" "bucket_test2_versioning" {
+  bucket = aws_s3_bucket.bucket_test2.id
+
+  versioning_configuration {
+    status = "Disabled"
+  }
 }
