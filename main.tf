@@ -17,7 +17,7 @@ terraform {
     organization = "exnoa-pf-kurose"
 
     workspaces {
-      name = "vpc-test"
+      name = "tfc-aws-test"
     }
   }
 }
@@ -86,4 +86,13 @@ resource "aws_security_group" "allow_tls" {
   tags = {
     Name = "allow_tls"
   }
+}
+
+resource "random_id" "sample" {
+  byte_length = 4
+}
+
+output "random_sample" {
+  description = "random string test"
+  value       = random_id.sample.b64_std
 }
