@@ -10,6 +10,13 @@ variable "availability_zone_list" {
     "ap-northeast-1d"
   ]
 }
+variable "test_security_groups" {
+  default = [
+    "test1",
+    "test2"
+  ]
+}
+
 
 terraform {
   backend "remote" {
@@ -31,6 +38,11 @@ provider "aws" {
 output "account_id" {
   description = "AWS Account ID"
   value       = data.aws_caller_identity.account.id
+}
+
+output "random_sample" {
+  description = "random string test"
+  value       = random_id.sample.b64_std
 }
 
 data "aws_caller_identity" "account" {}
@@ -92,7 +104,32 @@ resource "random_id" "sample" {
   byte_length = 4
 }
 
-output "random_sample" {
-  description = "random string test"
-  value       = random_id.sample.b64_std
+resource "aws_security_group" "allow_loop_test" {
+  count = length(var.test_security_groups)
+
+  name        = var.test_security_groups[count.index]
+  description = "Loop Test Security Group"
+  vpc_id      = aws_vpc.test.id
+}
+
+resource "aws_security_group_rule" "egress_test" {
+  count = length(var.test_security_groups)
+
+  type              = "egress"
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
+  from_port         = 0
+  security_group_id = aws_security_group.allow_loop_test[count.index].id
+}
+
+resource "aws_security_group_rule" "ingress_test" {
+  count = length(var.test_security_groups)
+
+  type              = "ingress"
+  to_port           = 0
+  protocol          = "-1"
+  self              = true
+  from_port         = 0
+  security_group_id = aws_security_group.allow_loop_test[count.index].id
 }
