@@ -195,3 +195,18 @@ resource "null_resource" "release_lock" {
     aws_s3_bucket.bucket_test1
   ]
 }
+
+resource "terraform_data" "release_lock" {
+  triggers_replace = {
+    name = "null_resource_sample"
+  }
+
+  provisioner "local-exec" {
+    command = "ls"
+  }
+
+  depends_on = [
+    aws_s3_bucket.bucket_test1
+  ]
+}
+
