@@ -181,3 +181,17 @@ resource "aws_s3_bucket_versioning" "bucket_test2_versioning" {
     status = "Disabled"
   }
 }
+
+resource "null_resource" "release_lock" {
+  triggers = {
+    name = "null_resource_sample"
+  }
+
+  provisioner "local-exec" {
+    command = "ls"
+  }
+
+  depends_on = [
+    aws_s3_bucket.bucket_test1
+  ]
+}
